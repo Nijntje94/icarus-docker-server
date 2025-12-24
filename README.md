@@ -1,51 +1,51 @@
 # Icarus Dedicated Server - Docker
 
-Makkelijke setup voor een Icarus dedicated server met Docker.
+Easy setup for an Icarus dedicated server using Docker.
 
-## Vereisten
+## Requirements
 
 - Docker
 - docker-compose
-- Open poorten: 17777/udp en 27015/udp
+- Open ports: 17777/udp and 27015/udp
 
-## Snelle Start
+## Quick Start
 ```bash
-# Clone de repo
+# Clone the repo
 git clone https://github.com/Nijntje94/icarus-docker-server/.git
-cd icarus-server
+cd icarus-docker-server
 
 # Run setup script
 ./setup.sh
 
-# Start de server
+# Start the server
 docker-compose up -d
 
-# Bekijk logs
+# View logs
 docker-compose logs -f icarus
 ```
 
-## Handmatige Setup
+## Manual Setup
 
-1. Kopieer `docker-compose.yml.example` naar `docker-compose.yml`
-2. Pas de volgende variabelen aan:
-   - `YOUR_SERVER_NAME` - Naam van je server
-   - `YOUR_JOIN_PASSWORD` - Wachtwoord om te joinen
-   - `YOUR_ADMIN_PASSWORD` - Admin wachtwoord
+1. Copy `docker-compose.yml.example` to `docker-compose.yml`
+2. Adjust the following variables:
+   - `YOUR_SERVER_NAME` - Name of your server
+   - `YOUR_JOIN_PASSWORD` - Password to join
+   - `YOUR_ADMIN_PASSWORD` - Admin password
 
-3. Maak config directory:
+3. Create config directory:
 ```bash
 mkdir -p ./serverfiles/Icarus/Saved/Config/WindowsServer
 ```
 
-4. Kopieer `config-templates/ServerSettings.ini.example` naar `./serverfiles/Icarus/Saved/Config/WindowsServer/ServerSettings.ini`
-5. Pas de placeholders aan in ServerSettings.ini
+4. Copy `config-templates/ServerSettings.ini.example` to `./serverfiles/Icarus/Saved/Config/WindowsServer/ServerSettings.ini`
+5. Adjust the placeholders in ServerSettings.ini
 
-6. Start de server:
+6. Start the server:
 ```bash
 docker-compose up -d
 ```
 
-## Server Beheer
+## Server Management
 ```bash
 # Start server
 docker-compose up -d
@@ -53,10 +53,10 @@ docker-compose up -d
 # Stop server
 docker-compose down
 
-# Herstart server
+# Restart server
 docker-compose restart icarus
 
-# Bekijk logs
+# View logs
 docker-compose logs -f icarus
 
 # Update server
@@ -65,20 +65,20 @@ docker-compose pull
 docker-compose up -d
 ```
 
-## Configuratie
+## Configuration
 
-### Poorten
-- **17777/udp** - Game poort
-- **27015/udp** - Query poort (server browser)
+### Ports
+- **17777/udp** - Game port
+- **27015/udp** - Query port (server browser)
 
-### ServerSettings.ini opties
+### ServerSettings.ini Options
 
-- `SessionName` - Server naam in browser
-- `JoinPassword` - Wachtwoord om te joinen
-- `AdminPassword` - Admin wachtwoord voor in-game commands
-- `MaxPlayers` - Maximum aantal spelers (1-8)
-- `ShutdownIfNotJoinedFor` - Seconden tot pauze als niemand joint (-1 = nooit)
-- `ShutdownIfEmptyFor` - Seconden tot pauze als server leeg is (-1 = nooit)
+- `SessionName` - Server name in browser
+- `JoinPassword` - Password to join
+- `AdminPassword` - Admin password for in-game commands
+- `MaxPlayers` - Maximum number of players (1-8)
+- `ShutdownIfNotJoinedFor` - Seconds until pause when nobody joins (-1 = never)
+- `ShutdownIfEmptyFor` - Seconds until pause when server is empty (-1 = never)
 
 ## Firewall
 
@@ -95,7 +95,7 @@ sudo firewall-cmd --permanent --add-port=27015/udp
 sudo firewall-cmd --reload
 ```
 
-## World/Save Data Verwijderen
+## Delete World/Save Data
 ```bash
 docker-compose stop icarus
 rm -rf ./serverfiles/Icarus/Saved/PlayerData/*
@@ -105,17 +105,17 @@ docker-compose start icarus
 
 ## Troubleshooting
 
-**Server vraagt niet om wachtwoord**
-- Check of ServerSettings.ini correct is aangemaakt
-- Herstart de container: `docker-compose restart icarus`
+**Server doesn't ask for password**
+- Check if ServerSettings.ini is created correctly
+- Restart the container: `docker-compose restart icarus`
 
-**Kan niet verbinden**
-- Check firewall regels
-- Verify poorten zijn open: `sudo ss -tulpn | grep -E '17777|27015'`
+**Cannot connect**
+- Check firewall rules
+- Verify ports are open: `sudo ss -tulpn | grep -E '17777|27015'`
 
-**Server naam is een random nummer**
-- Check of `-SteamServerName` parameter in GAME_PARAMS staat
-- Herstart de container
+**Server name is a random number**
+- Check if `-SteamServerName` parameter is in GAME_PARAMS
+- Restart the container
 
 ## Credits
 
