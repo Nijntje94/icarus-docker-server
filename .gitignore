@@ -1,0 +1,12 @@
+# Server data
+serverfiles/
+steamcmd/
+
+# Docker compose met wachtwoorden
+docker-compose.yml
+
+# Backups
+*.backup
+
+# Logs
+*.log

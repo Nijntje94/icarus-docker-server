@@ -1,0 +1,5 @@
+[/Script/Icarus.IcarusGameState]
+JoinPassword=YOUR_JOIN_PASSWORD
+AdminPassword=YOUR_ADMIN_PASSWORD
+ServerName=YOUR_SERVER_NAME
+MaxPlayers=8

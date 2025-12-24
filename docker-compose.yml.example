@@ -1,0 +1,20 @@
+services:
+  icarus:
+    container_name: icarus-dedicated
+    image: ich777/steamcmd:icarus
+    hostname: icarus-dedicated
+    restart: "unless-stopped"
+    ports:
+      - 17777:17777/udp
+      - 27015:27015/udp
+    volumes:
+      - ./serverfiles:/serverdata/serverfiles
+      - ./steamcmd:/serverdata/steamcmd
+    environment:
+      - UID=1000
+      - GID=1000
+      - GAME_ID=2089300
+      - GAME_NAME=icarus
+      - GAME_PARAMS=-Log -PORT=17777 -QueryPort=27015 -SteamServerName=YOUR_SERVER_NAME
+      - GAME_PORT=17777
+      - VALIDATE=true
