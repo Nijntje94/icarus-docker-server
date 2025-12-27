@@ -11,7 +11,7 @@ Easy setup for an Icarus dedicated server using Docker.
 ## Quick Start
 ```bash
 # Clone the repo
-git clone https://github.com/Nijntje94/icarus-docker-server/.git
+git clone https://github.com/Nijntje94/icarus-docker-server.git
 cd icarus-docker-server
 
 # Run setup script
