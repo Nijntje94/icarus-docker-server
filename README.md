@@ -11,7 +11,7 @@ Easy setup for an Icarus dedicated server using Docker.
 ## Quick Start
 ```bash
 # Clone the repo
-git clone https://github.com/Nijntje94/icarus-docker-server.git
+git clone https://github.com/Nijntje94/icarus-docker-server/.git
 cd icarus-docker-server
 
 # Run setup script
@@ -44,6 +44,61 @@ mkdir -p ./serverfiles/Icarus/Saved/Config/WindowsServer
 ```bash
 docker-compose up -d
 ```
+
+## Backup & Restore
+
+### Automatic Backups
+
+The setup script can configure automatic daily backups at 04:00 AM. During setup, choose "Yes" when asked about automatic backups.
+
+**Manual backup:**
+```bash
+# Run the backup script manually
+./backup-icarus.sh
+```
+
+**View backup logs:**
+```bash
+cat ~/backup/icarus/backup.log
+```
+
+**Manage cron jobs:**
+```bash
+# View current cron jobs
+crontab -l
+
+# Edit cron jobs (to change time or disable)
+crontab -e
+```
+
+### Restore from Backup
+
+**During setup:**
+The setup script will ask if you want to restore from a backup and show all available backup files.
+
+**Manual restore:**
+```bash
+# Stop the server
+docker-compose down
+
+# Copy backup file to prospects directory
+cp ~/backup/icarus/YourWorld_20241227_040000.json \
+   ./serverfiles/Icarus/Saved/PlayerData/DedicatedServer/Prospects/YourWorld.json
+
+# Fix permissions
+sudo chown -R 1000:1000 ./serverfiles/Icarus/Saved/
+
+# Start the server
+docker-compose up -d
+```
+
+### Backup Location
+
+Default backup location: `~/backup/icarus`
+
+Backups are saved with timestamps: `WorldName_YYYYMMDD_HHMMSS.json`
+
+Backups older than 30 days are automatically deleted.
 
 ## Server Management
 ```bash
@@ -116,6 +171,16 @@ docker-compose start icarus
 **Server name is a random number**
 - Check if `-SteamServerName` parameter is in GAME_PARAMS
 - Restart the container
+
+**Backup not running**
+- Check cron jobs: `crontab -l`
+- Check backup log: `cat ~/backup/icarus/backup.log`
+- Verify backup script has execute permissions: `ls -l backup-icarus.sh`
+
+**Version mismatch between client and server**
+- Dedicated server updates often come 24-48 hours after client updates
+- Check [SteamDB](https://steamdb.info/app/2089300/) for latest dedicated server version
+- Wait for RocketWerkz to release the matching dedicated server version
 
 ## Credits
 
